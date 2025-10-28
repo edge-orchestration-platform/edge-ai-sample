@@ -19,6 +19,7 @@ sess = ort.InferenceSession(str(MODEL_PATH))
 
 @app.route('/health', methods=['GET'])
 def health():
+    print("health called")
     return jsonify({'status': 'ok'})
 
 @app.route('/infer', methods=['POST'])
@@ -41,4 +42,5 @@ def infer():
     return jsonify({'c': c})
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

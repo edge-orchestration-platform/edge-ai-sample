@@ -36,7 +36,9 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
+          no-cache: true
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/edge-onnx-sample:latest
+
             ghcr.io/${{ github.repository_owner }}/edge-onnx-sample:${{ github.sha }}

@@ -22,11 +22,12 @@ def build_add_model(path: str = "model.onnx"):
         outputs=[C],
     )
 
-    model_def = helper.make_model(graph_def, producer_name='edge-onnx-sample')
+    model_def = helper.make_model(graph_def, producer_name='edge-onnx-sample', ir_version=10)
     onnx.save(model_def, path)
     return path
 
 
 if __name__ == '__main__':
     p = build_add_model()
+
     print(f'Wrote {p}')

@@ -33,7 +33,7 @@ def health():
     return jsonify({'status': 'ok'})
 
 @app.route('/infer', methods=['POST'])
-def infer
+def infer():
     print("infer called")
     payload = request.get_json(force=True)
     a = np.array(payload.get('a', []), dtype=np.float32)
@@ -55,5 +55,6 @@ def infer
 if __name__ == '__main__':
 
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+
 
 

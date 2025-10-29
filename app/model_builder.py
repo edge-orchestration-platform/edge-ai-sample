@@ -22,7 +22,14 @@ def build_add_model(path: str = "model.onnx"):
         outputs=[C],
     )
 
-    model_def = helper.make_model(graph_def, producer_name='edge-onnx-sample', ir_version=10)
+    # ✅ Force IR version 10 and opset 21
+    opset_imports = [helper.make_operatorsetid("", 21)]
+    model_def = helper.make_model(
+        graph_def,
+        producer_name='edge-onnx-sample',
+        ir_version=10,
+        opset_imports=opset_imports
+    )
     onnx.save(model_def, path)
     return path
 
@@ -31,3 +38,4 @@ if __name__ == '__main__':
     p = build_add_model()
 
     print(f'Wrote {p}')
+

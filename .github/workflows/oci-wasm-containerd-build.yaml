@@ -19,6 +19,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.6'
+
       # 2️⃣ (Optional) Build WASM module if present
       - name: Setup TinyGo
         if: ${{ hashFiles('wasm/**', 'app/wasm/**') != '' }}

@@ -47,11 +47,20 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # 4️⃣ Push WASM OCI artifact (if exists)
-      - name: Install ORAS
-        if: ${{ hashFiles('build/edge-ai.wasm') != '' }}
+      - name: Install ORAS CLI
         run: |
-          curl -sSL https://github.com/oras-project/oras/releases/latest/download/oras_$(uname -s | tr '[:upper:]' '[:lower:]')_amd64.tar.gz \
-          | tar -xz -C /usr/local/bin oras
+          ORAS_VERSION="1.1.0"
+          curl -L https://github.com/oras-project/oras/releases/download/v${ORAS_VERSION}/oras_${ORAS_VERSION}_linux_amd64.tar.gz -o oras.tar.gz
+          tar -xzf oras.tar.gz
+          sudo mv oras /usr/local/bin/
+          oras version
+
+
+      # - name: Install ORAS
+      #   if: ${{ hashFiles('build/edge-ai.wasm') != '' }}
+      #   run: |
+      #     curl -sSL https://github.com/oras-project/oras/releases/latest/download/oras_$(uname -s | tr '[:upper:]' '[:lower:]')_amd64.tar.gz \
+      #     | tar -xz -C /usr/local/bin oras
 
       - name: Push WASM OCI artifact
         if: ${{ hashFiles('build/edge-ai.wasm') != '' }}
